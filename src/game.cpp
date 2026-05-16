@@ -2,7 +2,6 @@
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_video.h>
 #include <cstdio>
-#include <iostream>
 
 Game::Game() {}
 Game::~Game() {}
@@ -36,7 +35,7 @@ void Game::init() {
         SDL_Quit();
         return;
     }
-
+    Game::c_gameState = PLAYING;
 }
 
 void Game::handleEvents(SDL_Event e) {
@@ -53,14 +52,47 @@ void Game::handleEvents(SDL_Event e) {
                     SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
                 }
             }
+            else if (e.key.keysym.sym == SDLK_ESCAPE) {
+                switch (Game::c_gameState) {
+                    case PLAYING:
+                        Game::c_gameState = PAUSED;
+                        break;
+                    case PAUSED:
+                        Game::c_gameState = PLAYING;
+                        break;
+                    case GAME_OVER:
+                        break;
+                    case MENU:
+                        break;
+                }
+            }
+            else if (e.key.keysym.sym == SDLK_e) {
+                Game::running = 0;
+            }
         }
     }
 }
 
 void Game::render() {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
+    switch (Game::c_gameState) {
+        case MENU:
+            break;
+        case PLAYING:
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_RenderClear(renderer);
+            SDL_RenderPresent(renderer);
+            break;
+        case PAUSED:
+            SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+            SDL_RenderClear(renderer);
+            SDL_RenderPresent(renderer);
+            break;
+        case GAME_OVER:
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            SDL_RenderClear(renderer);
+            SDL_RenderPresent(renderer);
+            break;
+    }
 }
 
 void Game::update() {

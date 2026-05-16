@@ -6,6 +6,8 @@
 #define WIDTH 800
 #define HEIGHT 700
 
+enum GameState { MENU, PLAYING, PAUSED, GAME_OVER };
+
 class Game {
     public:
         Game();
@@ -20,6 +22,7 @@ class Game {
     private:
         SDL_Window *window;
         SDL_Renderer *renderer;
+        GameState c_gameState;
 };
 
 #endif //GAME_H_
