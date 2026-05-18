@@ -2,14 +2,15 @@
 CC = g++
 CFLAGS = `sdl2-config --cflags`
 LIBS = `sdl2-config --libs`
-TARGET = game
+FLAGS = -g -Wall
+TARGET = build/game
 SRC = src/main.cpp src/game.cpp
 
 # Default target
 all: $(TARGET)
 
 $(TARGET): $(SRC)
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS) $(FLAGS)
 
 # Clean build files
 clean:

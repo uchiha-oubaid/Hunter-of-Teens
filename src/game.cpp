@@ -11,7 +11,6 @@ void Game::init() {
         printf("SDL initialization failed: %s\n", SDL_GetError());
         return;
     }
-
     Game::window = SDL_CreateWindow(
             "BURGER",
             SDL_WINDOWPOS_CENTERED,
