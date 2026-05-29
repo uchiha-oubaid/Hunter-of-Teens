@@ -1,10 +1,10 @@
 # Compiler and flags
 CC = g++
 CFLAGS = `sdl2-config --cflags`
-LIBS = `sdl2-config --libs`
+LIBS = `sdl2-config --libs` -lSDL2_image
 FLAGS = -g -Wall
 TARGET = build/game
-SRC = src/main.cpp src/game.cpp
+SRC = src/main.cpp src/game.cpp src/player.cpp
 
 # Default target
 all: $(TARGET)

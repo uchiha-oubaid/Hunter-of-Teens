@@ -2,18 +2,29 @@
 #define PLAYER_H_
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <string>
+
+struct p_movement {
+    bool down = false;
+    bool up = false;
+    bool left = false;
+    bool right = false;
+};
 
 class Player {
     public:
         Player();
         ~Player();
-        SDL_Texture getTexture(std::string filename);
-        void render(int x, int y);
-        void update(double speed);
-        void jump(double velocity);
-    private:
+        SDL_Rect rect;
+        SDL_Texture *getTexture(SDL_Renderer *rend, const char* filename);
+        void init();
+        void render(SDL_Renderer *rend, SDL_Rect);
+        void update();
+        void jump();
+        void move(int xFactor, int yFactor);
+        int x, y;
         bool isDead;
+        p_movement pMovement;
+        double speed, velocity;
         SDL_Surface *psurface;
         SDL_Texture *ptexture;
 };
